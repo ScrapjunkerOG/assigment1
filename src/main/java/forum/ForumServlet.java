@@ -14,7 +14,11 @@ import java.util.List;
 @WebServlet("/forum")
 public class ForumServlet extends HttpServlet {
 
-    // The object responsible for storing and searching forum entries.
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// The object responsible for storing and searching forum entries.
     private EntryHandler entryHandler;
 
     // init() is called by Tomcat when the servlet is created.
@@ -58,10 +62,14 @@ public class ForumServlet extends HttpServlet {
     	// Tell the browser that we are sending HTML encoded as UTF-8.
     	response.setContentType("text/html;charset=UTF-8");
 
+    	// Get the search text from the URL parameter named "search".
     	String searchTerm = request.getParameter("search");
 
     	List<Entry> entries;
 
+    	
+    	// If no search was entered, display all entries.
+    	// Otherwise, ask EntryHandler to return only matching entries.
     	if (searchTerm == null || searchTerm.isBlank()) {
     	    entries = entryHandler.getAllEntries();
     	} else {
