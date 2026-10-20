@@ -1,6 +1,7 @@
 package forum;
 
 import jakarta.servlet.ServletException;
+import java.util.Collections;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -76,6 +77,8 @@ public class ForumServlet extends HttpServlet {
     	    entries = entryHandler.search(searchTerm);
     	}
 
+    	Collections.reverse(entries);
+    	
     	PrintWriter out = response.getWriter();
 
     	// Start the HTML document.

@@ -21,7 +21,7 @@ public class EntryHandler {
     // Returns all entries currently stored in the forum.
     public List<Entry> getAllEntries() {
 
-        return entries;
+    	return new ArrayList<>(entries);
     }
 
     // Searches for a word or phrase in usernames and messages.
