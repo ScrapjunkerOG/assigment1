@@ -42,6 +42,16 @@ public class ForumServlet extends HttpServlet {
 
         // Get the value from the HTML textarea named "message".
         String message = request.getParameter("message");
+        
+        if (userName == null || userName.isBlank()) {
+        	response.sendRedirect(request.getContextPath() + "/forum");
+            return;
+        }
+        
+        if (message == null || message.isBlank()) {
+        	response.sendRedirect(request.getContextPath() + "/forum");
+            return;
+        }
 
         // Give the username and message to EntryHandler.
         // EntryHandler creates and stores the Entry object.
@@ -85,6 +95,22 @@ public class ForumServlet extends HttpServlet {
     	out.println("<!DOCTYPE html>");
     	out.println("<html>");
     	out.println("<head>");
+    	out.println("<script>");
+    	out.println("function validateForm() {");
+    	out.println("    const userName = document.getElementsByName('userName')[0].value;");
+    	out.println("    const message = document.getElementsByName('message')[0].value;");
+    	out.println("    if (userName.trim() === '') {");
+    	out.println("        alert('Please enter a username.');");
+    	out.println("        return false;");
+    	out.println("    }");
+    	out.println("    if (message.trim() === '') {");
+    	out.println("        alert('Please enter a message.');");
+    	out.println("        return false;");
+    	out.println("    }");
+    	out.println("    return true;");
+    	out.println("}");
+    	out.println("</script>");
+  
     	out.println("<meta charset='UTF-8'>");
     	out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
     	out.println("<title>Forum</title>");
@@ -180,7 +206,7 @@ public class ForumServlet extends HttpServlet {
     	out.println("<div class='form-box'>");
     	out.println("<h2>New message</h2>");
 
-    	out.println("<form method='post' action='forum'>");
+    	out.println("<form method='post' action='forum' onsubmit='return validateForm()'>");
 
     	out.println("<input type='text' name='userName' placeholder='Your name'>");
 
